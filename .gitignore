@@ -1,0 +1,20 @@
+# Dependencias instaladas
+node_modules/
+
+# Archivos generados por varios editores/IDEs
+*.log
+*.swp
+*.swo
+*.out
+.vscode/
+.idea/
+.DS_Store
+
+# Archivos de configuración
+.env
+
+# Archivos generados por herramientas de compilación/transpilación
+/dist/
+
+# Otros archivos generados
+coverage/

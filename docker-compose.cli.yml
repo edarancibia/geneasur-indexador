@@ -1,0 +1,30 @@
+version: '3'
+services:
+  npx:
+    image: 'geneasur-api'
+    init: true
+    entrypoint: npx
+    volumes:
+      - .:/app
+      
+  npm:
+    image: 'geneasur-api'
+    init: true
+    entrypoint: npm
+    volumes:
+      - .:/app
+      - npm_cache:/root/.npm
+    command: "npm run start:dev"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: geneasur_db
+    env_file:
+      - .env
+  volumes:
+      - db-data:/var/lib/mysql
