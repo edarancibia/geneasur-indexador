@@ -1,13 +1,22 @@
-FROM node:18-alpine3.17
+# Definición de la etapa base
+FROM node:18-alpine3.17 as base
 
-WORKDIR /app
+# Instalación de ts-node globalmente
+RUN npm i -g ts-node
 
-COPY package*.json ./
+# Directorio de trabajo
+WORKDIR /src/app
 
-RUN npm install
+# Copia de los archivos package.json y package-lock.json
+COPY package*.json .
 
+# Copia de los archivos restantes
 COPY . .
 
+RUN npm install
+# Exponer el puerto 4000
 EXPOSE 4000
 
-CMD ["npm", "start"]
+# Comando por defecto para ejecutar la aplicación
+CMD [ "npm", "run", "start" ]
+

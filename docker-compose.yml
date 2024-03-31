@@ -1,28 +1,49 @@
-version: '3'
+version: '3.7'
+
+# services:
+#   app-geneasur:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#       target: base
+#     volumes:
+#       #- ./src:/home/node/app/src
+#       - .:/app
+#       - ./nodemon.json:/home/node/app/nodemon.json
+#     container_name: app-geneasur
+#     expose:
+#       - '4000'
+#     ports:
+#       - '4000:4000'
+#     command: npm run dev
+#     depends_on:
+#       - db
+#     links:
+#       - db
+#   db:
+#     image: mysql:latest
+#     restart: always
+#     environment:
+#       MYSQL_ROOT_PASSWORD: root
+#       MYSQL_DATABASE: geneasur_db
+#       MYSQL_USER: root
+#       # MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+#       # MYSQL_DATABASE: ${MYSQL_DATABASE}
+#       # MYSQL_USER: ${MYSQL_ROOT_USER}
+#     ports:
+#       - "3307:3306"
+#     volumes:
+#       - db-data:/var/lib/mysql
+# volumes:
+#   db-data: 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: "npm run start:dev"
-    ports:
-      - "4000:3000"
-    volumes:
-      - .:/app
-    depends_on:
-      - db
-    links:
-      - db
-  db:
-    image: mysql:latest
-    restart: always
+  postgres:
+    image: postgres:13
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_ROOT_USER}
+      - POSTGRES_DB=geneasur_db
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
     ports:
-      - "3306:3306"
+      - 5433:5432
     volumes:
-      - db-data:/var/lib/mysql
-volumes:
-  db-data:
+      - ./postgres_data:/var/lib/postgresql/data

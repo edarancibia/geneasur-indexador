@@ -18,3 +18,5 @@ node_modules/
 
 # Otros archivos generados
 coverage/
+
+mysql_data
